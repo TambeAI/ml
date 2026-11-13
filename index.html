@@ -4,20 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>ML Practicals</title>
-    <style>
-        body {
-            margin: 20px;
-            background: #ffffff;
-        }
-        pre {
-            white-space: pre-wrap;
-            overflow-wrap: anywhere;
-            font-family: monospace;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
+
 <pre id="code">Loading practical...</pre>
 
 <script>
@@ -25,7 +14,7 @@
     const id = parts[parts.length - 1];
 
     const githubFile =
-        `https://raw.githubusercontent.com/cpp6/ML/main/${id}`;
+        "https://raw.githubusercontent.com/cpp6/ML/main/" + id;
 
     if (!/^\d+$/.test(id)) {
         document.getElementById("code").textContent =
@@ -41,11 +30,12 @@
             .then(code => {
                 document.getElementById("code").textContent = code;
             })
-            .catch(() => {
+            .catch(error => {
                 document.getElementById("code").textContent =
-                    "Practical not found";
+                    "Practical not found: " + error.message;
             });
     }
 </script>
+
 </body>
 </html>
