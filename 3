@@ -1,28 +1,150 @@
 
-import pandas as pd
-import numpy as np
+# ==========================================================
+# 1. IMPORT LIBRARIES
+# ==========================================================
+
+from sklearn.datasets import load_digits
+
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
 
-df = pd.read_csv(r"add california housing csv file path here")
+from sklearn.svm import SVC
 
-X = df.drop("MedHouseVal", axis=1)
-y = df["MedHouseVal"]
+from sklearn.metrics import accuracy_score, classification_report
+
+import matplotlib.pyplot as plt
+
+
+# ==========================================================
+# 2. LOAD DATASET
+# ==========================================================
+
+digits = load_digits()
+
+print("Dataset Loaded Successfully!")
+
+
+# ==========================================================
+# 3. INPUT AND OUTPUT
+# ==========================================================
+
+X = digits.data
+
+y = digits.target
+
+print("\nInput Data Shape:")
+print(X.shape)
+
+print("\nOutput Data Shape:")
+print(y.shape)
+
+
+# ==========================================================
+# 4. DISPLAY SAMPLE IMAGE
+# ==========================================================
+
+plt.figure(figsize=(4, 4))
+
+plt.imshow(digits.images[0], cmap="gray")
+
+plt.title("Digit: " + str(y[0]))
+
+plt.axis("off")
+
+plt.show()
+
+
+# ==========================================================
+# 5. SPLIT DATASET
+# ==========================================================
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X,
+    y,
+    test_size=0.20,
+    random_state=42,
+    stratify=y
 )
 
-model = LinearRegression()
+print("\nTraining Data Shape:", X_train.shape)
+
+print("Testing Data Shape:", X_test.shape)
+
+
+# ==========================================================
+# 6. CREATE SVM MODEL
+# ==========================================================
+
+model = SVC(kernel="rbf")
+
+
+# ==========================================================
+# 7. TRAIN MODEL
+# ==========================================================
+
 model.fit(X_train, y_train)
+
+print("\nSVM Model Training Completed!")
+
+
+# ==========================================================
+# 8. PREDICTION
+# ==========================================================
+
 y_pred = model.predict(X_test)
 
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
-r2 = r2_score(y_test, y_pred)
 
-print("Results Of Model Evaluation: \n")
-print("Mean Squared Error (MSE):", mse)
-print("Root Mean Squared Error (RMSE):", rmse)
-print("R2 Score:", r2)
+# ==========================================================
+# 9. ACCURACY
+# ==========================================================
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print("\nModel Accuracy:", accuracy)
+
+print("Accuracy Percentage:", accuracy * 100, "%")
+
+
+# ==========================================================
+# 10. CLASSIFICATION REPORT
+# ==========================================================
+
+print("\nClassification Report:")
+
+print(
+    classification_report(
+        y_test,
+        y_pred
+    )
+)
+
+
+# ==========================================================
+# 11. DISPLAY ACTUAL AND PREDICTED DIGITS
+# ==========================================================
+
+for i in range(5):
+
+    plt.figure(figsize=(4, 4))
+
+    plt.imshow(
+        X_test[i].reshape(8, 8),
+        cmap="gray"
+    )
+
+    plt.title(
+        "Actual: {} | Predicted: {}".format(
+            y_test[i],
+            y_pred[i]
+        )
+    )
+
+    plt.axis("off")
+
+    plt.show()
+
+
+# ==========================================================
+# 12. FINAL RESULT
+# ==========================================================
+
+print("\nSVM Digit Classification Completed Successfully!")
