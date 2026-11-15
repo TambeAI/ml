@@ -1,28 +1,267 @@
 
+# ==========================================================
+# 1. IMPORT LIBRARIES
+# ==========================================================
+
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.cluster import DBSCAN
-from sklearn.preprocessing import StandardScaler
+import numpy as np
 
-df = pd.read_csv(r"make_moons.csv")
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
 
-X = df[["Feature_1", "Feature_2"]]
-X = StandardScaler().fit_transform(X)
 
-model = DBSCAN(eps=0.5, min_samples=5)
-df["Cluster"] = model.fit_predict(X)
+# ==========================================================
+# 2. LOAD DATASET
+# ==========================================================
 
-print(df)
+df = pd.read_csv("Telco-Customer-Churn.csv")
 
-clusters = df["Cluster"].nunique()
-if -1 in df["Cluster"].values:
-    clusters -= 1
+print("Dataset Loaded Successfully!")
 
-print("Number of Clusters:", clusters)
-print("Noise Points:", list(df["Cluster"]).count(-1))
+print("\nFirst 5 Records")
+print(df.head())
 
-plt.scatter(X[:, 0], X[:, 1], c=df["Cluster"], cmap="rainbow")
-plt.xlabel("Feature 1")
-plt.ylabel("Feature 2")
-plt.title("DBSCAN Clustering")
-plt.show()
+print("\nDataset Shape")
+print(df.shape)
+
+print("\nColumn Names")
+print(df.columns.tolist())
+
+print("\nDataset Information")
+df.info()
+
+print("\nMissing Values")
+print(df.isnull().sum())
+
+
+# ==========================================================
+# 3. DATA CLEANING
+# ==========================================================
+
+# Convert TotalCharges into numeric
+df["TotalCharges"] = pd.to_numeric(
+    df["TotalCharges"],
+    errors="coerce"
+)
+
+# Remove extra spaces from categorical columns
+for col in df.select_dtypes(include="object").columns:
+
+    df[col] = df[col].astype(str).str.strip()
+
+# Handle missing numeric values using median
+for col in df.select_dtypes(include=np.number).columns:
+
+    df[col] = df[col].fillna(df[col].median())
+
+# Handle missing categorical values using mode
+for col in df.select_dtypes(include="object").columns:
+
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+print("\nMissing Values After Cleaning")
+print(df.isnull().sum())
+
+
+# ==========================================================
+# 4. REMOVE DUPLICATES
+# ==========================================================
+
+print("\nDuplicate Records")
+print(df.duplicated().sum())
+
+df.drop_duplicates(inplace=True)
+
+print("\nShape After Removing Duplicates")
+print(df.shape)
+
+
+# ==========================================================
+# 5. TARGET VARIABLE ENCODING
+# ==========================================================
+
+df["Churn"] = df["Churn"].replace({
+    "Yes": 1,
+    "No": 0
+})
+
+df["Churn"] = pd.to_numeric(
+    df["Churn"],
+    errors="coerce"
+)
+
+df.dropna(subset=["Churn"], inplace=True)
+
+
+# ==========================================================
+# 6. FEATURE ENGINEERING
+# ==========================================================
+
+# Average monthly spending
+df["AvgMonthlySpend"] = (
+    df["TotalCharges"] / (df["tenure"] + 1)
+)
+
+# Long-term customer identification
+df["LongTermCustomer"] = np.where(
+    df["tenure"] >= 24,
+    1,
+    0
+)
+
+print("\nFeature Engineering Completed")
+
+print(df[[
+    "tenure",
+    "TotalCharges",
+    "AvgMonthlySpend",
+    "LongTermCustomer"
+]].head())
+
+
+# ==========================================================
+# 7. OUTLIER DETECTION AND HANDLING
+# ==========================================================
+
+numeric_cols = [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges"
+]
+
+for col in numeric_cols:
+
+    Q1 = df[col].quantile(0.25)
+
+    Q3 = df[col].quantile(0.75)
+
+    IQR = Q3 - Q1
+
+    lower = Q1 - 1.5 * IQR
+
+    upper = Q3 + 1.5 * IQR
+
+    df[col] = df[col].clip(lower, upper)
+
+print("\nOutliers Handled")
+
+
+# ==========================================================
+# 8. DROP UNNECESSARY COLUMN
+# ==========================================================
+
+df.drop(
+    "customerID",
+    axis=1,
+    inplace=True
+)
+
+print("\nCustomer ID Removed")
+
+
+# ==========================================================
+# 9. CATEGORICAL ENCODING
+# ==========================================================
+
+categorical_cols = df.select_dtypes(
+    include="object"
+).columns
+
+for col in categorical_cols:
+
+    encoder = LabelEncoder()
+
+    df[col] = encoder.fit_transform(df[col])
+
+print("\nCategorical Encoding Completed")
+
+print(df.head())
+
+
+# ==========================================================
+# 10. FEATURE AND TARGET SEPARATION
+# ==========================================================
+
+X = df.drop(
+    "Churn",
+    axis=1
+)
+
+y = df["Churn"]
+
+print("\nFeatures Shape")
+print(X.shape)
+
+print("\nTarget Shape")
+print(y.shape)
+
+
+# ==========================================================
+# 11. TRAIN TEST SPLIT
+# ==========================================================
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=42,
+    stratify=y
+)
+
+print("\nTraining and Testing Split Completed")
+
+
+# ==========================================================
+# 12. FEATURE SCALING
+# ==========================================================
+
+scale_cols = [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges",
+    "AvgMonthlySpend"
+]
+
+scaler = StandardScaler()
+
+# Fit and transform training data
+X_train[scale_cols] = scaler.fit_transform(
+    X_train[scale_cols]
+)
+
+# Transform testing data
+X_test[scale_cols] = scaler.transform(
+    X_test[scale_cols]
+)
+
+print("\nScaling Completed")
+
+
+# ==========================================================
+# 13. DISPLAY TRAINING AND TESTING DATA
+# ==========================================================
+
+print("\nTraining Data Shape")
+print(X_train.shape)
+
+print("\nTesting Data Shape")
+print(X_test.shape)
+
+print("\nTraining Target Shape")
+print(y_train.shape)
+
+print("\nTesting Target Shape")
+print(y_test.shape)
+
+
+# ==========================================================
+# 14. SAVE CLEANED DATASET 
+# ==========================================================
+
+df.to_csv(
+    "Telecom_Customer_Churn_Cleaned.csv",
+    index=False
+)
+
+print("\nCleaned Dataset Saved Successfully!")
+
