@@ -1,50 +1,320 @@
 
+# ==========================================================
+# 1. IMPORT LIBRARIES
+# ==========================================================
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+import seaborn as sns
 
-df = pd.read_csv(r"add california csv file path here")
+from sklearn.cluster import KMeans
 
-X = df[["MedInc"]]
-y = df["MedHouseVal"]
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+# ==========================================================
+# 2. LOAD DATASET
+# ==========================================================
+
+data = pd.read_csv("Iris.csv")
+
+print("Dataset Loaded Successfully!")
+
+print("\nFirst 5 Records")
+print(data.head())
+
+print("\nLast 5 Records")
+print(data.tail())
+
+print("\nTotal Records")
+print(len(data))
+
+print("\nDataset Shape")
+print(data.shape)
+
+print("\nColumn Names")
+print(data.columns)
+
+
+# ==========================================================
+# 3. DISPLAY COLUMN NUMBERS
+# ==========================================================
+
+for i, col in enumerate(data.columns):
+
+    print(f"Column number {i+1} is {col}")
+
+
+# ==========================================================
+# 4. DATA INFORMATION
+# ==========================================================
+
+print("\nData Types")
+print(data.dtypes)
+
+print("\nDataset Information")
+data.info()
+
+print("\nStatistical Description")
+print(data.describe())
+
+
+# ==========================================================
+# 5. CHECK MISSING VALUES
+# ==========================================================
+
+print("\nMissing Values")
+print(data.isnull())
+
+print("\nMissing Values Count")
+print(data.isnull().sum())
+
+
+# ==========================================================
+# 6. REMOVE ID COLUMN
+# ==========================================================
+
+if "Id" in data.columns:
+
+    data.drop("Id", axis=1, inplace=True)
+
+print("\nDataset After Removing ID")
+print(data.head())
+
+print("\nMissing Values After Cleaning")
+print(data.isna().sum())
+
+
+# ==========================================================
+# 7. CHECK SPECIES COUNT
+# ==========================================================
+
+print("\nSpecies Count")
+print(data["Species"].value_counts())
+
+
+# ==========================================================
+# 8. SEPARATE TARGET AND CLUSTERING DATA
+# ==========================================================
+
+target_data = data["Species"]
+
+clustering_data = data[
+    [
+        "SepalLengthCm",
+        "SepalWidthCm",
+        "PetalLengthCm",
+        "PetalWidthCm"
+    ]
+]
+
+print("\nTarget Data")
+print(target_data.head())
+
+print("\nClustering Data")
+print(clustering_data.head())
+
+
+# ==========================================================
+# 9. SCATTER PLOT - SEPAL LENGTH VS WIDTH
+# ==========================================================
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+sns.set(font_scale=1.2)
+
+sns.scatterplot(
+    x=data["SepalLengthCm"],
+    y=data["SepalWidthCm"],
+    s=70,
+    color="red",
+    edgecolor="black",
+    linewidth=0.3,
+    ax=ax
 )
 
-plt.figure(figsize=(10, 6))
-plt.scatter(X["MedInc"], y, label="Actual Data", alpha=0.5, s=10)
+ax.set_ylabel("Sepal Width (in cm)")
 
-x_plot = pd.DataFrame({"MedInc": np.linspace(X["MedInc"].min(), X["MedInc"].max(), 300)})
+ax.set_xlabel("Sepal Length (in cm)")
 
-for degree in [1, 2, 3, 4]:
+plt.title("Sepal Length vs Sepal Width", fontsize=18)
 
-    poly = PolynomialFeatures(degree=degree)
-    X_train_poly = poly.fit_transform(X_train)
-    X_test_poly = poly.transform(X_test)
+plt.tight_layout()
 
-    model = LinearRegression()
-    model.fit(X_train_poly, y_train)
-
-    train_pred = model.predict(X_train_poly)
-    test_pred = model.predict(X_test_poly)
-
-    print("\nPolynomial Degree:", degree)
-    print("Training MSE:", mean_squared_error(y_train, train_pred))
-    print("Testing MSE:", mean_squared_error(y_test, test_pred))
-    print("Testing R2 Score:", r2_score(y_test, test_pred))
-
-    x_poly = poly.transform(x_plot)
-    y_plot = model.predict(x_poly)
-
-    plt.plot(x_plot, y_plot, label=f"Degree {degree}", linewidth=2)
-
-plt.title("Polynomial Regression")
-plt.xlabel("Median Income")
-plt.ylabel("House Price")
-plt.legend()
 plt.show()
+
+
+# ==========================================================
+# 10. ELBOW METHOD - CALCULATE WCSS
+# ==========================================================
+
+wcss = []
+
+for i in range(1, 11):
+
+    km = KMeans(
+        n_clusters=i,
+        init="k-means++",
+        random_state=42,
+        n_init=10
+    )
+
+    km.fit(clustering_data)
+
+    wcss.append(km.inertia_)
+
+
+print("\nWCSS Values")
+print(np.array(wcss))
+
+
+# ==========================================================
+# 11. ELBOW GRAPH
+# ==========================================================
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(
+    range(1, 11),
+    wcss,
+    linewidth=2,
+    color="red",
+    marker="o"
+)
+
+plt.axvline(
+    x=3,
+    linestyle="--",
+    color="blue",
+    label="K = 3"
+)
+
+plt.ylabel("WCSS")
+
+plt.xlabel("Number of Clusters (K)")
+
+plt.title("Elbow Method", fontsize=18)
+
+plt.legend()
+
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.show()
+
+
+# ==========================================================
+# 12. CREATE K-MEANS MODEL
+# ==========================================================
+
+kms = KMeans(
+    n_clusters=3,
+    init="k-means++",
+    random_state=42,
+    n_init=10
+)
+
+
+# ==========================================================
+# 13. TRAIN K-MEANS MODEL
+# ==========================================================
+
+kms.fit(clustering_data)
+
+print("\nK-Means Model Training Completed!")
+
+
+# ==========================================================
+# 14. PREDICT CLUSTERS
+# ==========================================================
+
+clusters = clustering_data.copy()
+
+clusters["Cluster_Prediction"] = kms.labels_
+
+print("\nCluster Predictions")
+print(clusters.head())
+
+
+# ==========================================================
+# 15. DISPLAY CENTROIDS
+# ==========================================================
+
+print("\nCluster Centroids")
+
+print(kms.cluster_centers_)
+
+
+# ==========================================================
+# 16. CLUSTER VISUALIZATION
+# ==========================================================
+
+plt.figure(figsize=(10, 7))
+
+# Cluster 0
+plt.scatter(
+    clusters[clusters["Cluster_Prediction"] == 0]["SepalLengthCm"],
+    clusters[clusters["Cluster_Prediction"] == 0]["SepalWidthCm"],
+    s=70,
+    c="teal",
+    label="Cluster 0"
+)
+
+# Cluster 1
+plt.scatter(
+    clusters[clusters["Cluster_Prediction"] == 1]["SepalLengthCm"],
+    clusters[clusters["Cluster_Prediction"] == 1]["SepalWidthCm"],
+    s=70,
+    c="lime",
+    label="Cluster 1"
+)
+
+# Cluster 2
+plt.scatter(
+    clusters[clusters["Cluster_Prediction"] == 2]["SepalLengthCm"],
+    clusters[clusters["Cluster_Prediction"] == 2]["SepalWidthCm"],
+    s=70,
+    c="magenta",
+    label="Cluster 2"
+)
+
+# Display Centroids
+plt.scatter(
+    kms.cluster_centers_[:, 0],
+    kms.cluster_centers_[:, 1],
+    s=200,
+    c="yellow",
+    edgecolor="black",
+    marker="X",
+    label="Centroids"
+)
+
+plt.legend(loc="upper right")
+
+plt.xlim(4, 8)
+
+plt.ylim(1.8, 4.5)
+
+plt.ylabel("Sepal Width (in cm)")
+
+plt.xlabel("Sepal Length (in cm)")
+
+plt.title("K-Means Clustering", fontsize=18)
+
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.show()
+
+
+# ==========================================================
+# 17. SAVE CLUSTERED DATA
+# ==========================================================
+
+clusters.to_csv(
+    "Iris_Clustered_Data.csv",
+    index=False
+)
+
+print("\nClustered Dataset Saved Successfully!")
