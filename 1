@@ -1,32 +1,83 @@
 
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
-df = pd.read_csv(r"add titanic csv file path here")
+# Read CSV file
+df = pd.read_csv("Wine dataset.csv")
 
-print("Original Dataset")
-print(df.head())
+# Display column names
+print("Column Names:")
+print(df.keys())
 
-print("\nMISSING VALUES BEFORE PROCESSING")
+# Display unique classes
+print("\nUnique Classes:")
+print(df['class'].unique())
+
+# Check missing values
+print("\nMissing Values:")
 print(df.isnull().sum())
 
-df["Age"] = df["Age"].fillna(df["Age"].mean())
-df["Fare"] = df["Fare"].fillna(df["Fare"].mean())
-df["Embarked"] = df["Embarked"].fillna(df["Embarked"].mode()[0])
+# Select only Class 1 and Class 2
+df = df[df['class'].isin([1, 2])]
 
-df.drop(["PassengerId", "Name", "Ticket", "Cabin"], axis=1, inplace=True)
+# Separate input features and target
+X = df.drop('class', axis=1)
+y = df['class']
 
-df["Sex"] = LabelEncoder().fit_transform(df["Sex"])
-df = pd.get_dummies(df, columns=["Embarked"], dtype=int)
+# Standardize the data
+sc = StandardScaler()
+X = sc.fit_transform(X)
 
-print("\nDataset After Encoding: ")
-print(df.head())
+# Apply PCA
+pca = PCA()
+X_pca = pca.fit_transform(X)
 
-cols = ["Pclass", "Age", "SibSp", "Parch", "Fare"]
-df[cols] = StandardScaler().fit_transform(df[cols])
+# Calculate explained variance ratio
+explained_variance_ratio = pca.explained_variance_ratio_
 
-print("\nDataset After Scaling: ")
-print(df.head())
+# Plot cumulative explained variance
+plt.plot(
+    range(1, len(explained_variance_ratio) + 1),
+    explained_variance_ratio.cumsum(),
+    marker='o',
+    linestyle='--'
+)
 
-print("\nFinal Dataset: ")
-print(df.head())
+plt.xlabel('Number of Principal Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.title('Explained Variance Ratio')
+plt.show()
+
+# Select 12 principal components
+n_components = 12
+
+pca = PCA(n_components=n_components)
+X_pca = pca.fit_transform(X)
+
+# Select Class 1 and Class 2 indices
+red_indices = (y.to_numpy() == 1)
+white_indices = (y.to_numpy() == 2)
+
+# Plot Class 1
+plt.scatter(
+    X_pca[red_indices, 0],
+    X_pca[red_indices, 1],
+    c='red',
+    label='Class 1'
+)
+
+# Plot Class 2
+plt.scatter(
+    X_pca[white_indices, 0],
+    X_pca[white_indices, 1],
+    c='blue',
+    label='Class 2'
+)
+
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.legend()
+plt.title('PCA: Class 1 vs Class 2')
+plt.show()
