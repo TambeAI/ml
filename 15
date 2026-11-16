@@ -1,0 +1,55 @@
+
+MACHINE LEARNING AND DATA MINING FORMULAS
+
+1. PCA
+Standardization = (X - Mean) / Standard_Deviation
+Covariance = Σ(X - Mean_X)(Y - Mean_Y) / (n - 1)
+Explained_Variance_Ratio = Eigenvalue / Sum_of_All_Eigenvalues
+Total_Explained_Variance = Sum_of_Selected_Eigenvalues / Sum_of_All_Eigenvalues
+
+2. REGRESSION
+Linear Regression: y = mx + c
+Ridge Regression: J = Σ(y - ŷ)² + λΣw²
+Lasso Regression: J = Σ(y - ŷ)² + λΣ|w|
+R² = 1 - (SS_res / SS_tot)
+MSE = Σ(y - ŷ)² / n
+RMSE = √(Σ(y - ŷ)² / n)
+MAE = Σ|y - ŷ| / n
+Correlation = Cov(X,Y) / (σX * σY)
+
+3. CLASSIFICATION
+Accuracy = (TP + TN) / (TP + TN + FP + FN) * 100
+Precision = TP / (TP + FP)
+Recall = TP / (TP + FN)
+F1_Score = 2 * (Precision * Recall) / (Precision + Recall)
+
+4. K-MEANS CLUSTERING
+Euclidean_Distance = √Σ(Xi - Yi)²
+Manhattan_Distance = Σ|Xi - Yi|
+Centroid = Sum_of_Data_Points / Number_of_Data_Points
+WCSS = Σ(Xi - Centroid)²
+
+5. ENSEMBLE LEARNING
+Hard_Voting = Class_with_Majority_Votes
+Soft_Voting = Class_with_Highest_Average_Probability
+Weighted_Voting = Σ(Weight * Prediction)
+AdaBoost_Weight = 0.5 * ln((1 - Error) / Error)
+
+6. DATA MINING
+TF = Term_Frequency / Total_Number_of_Terms
+IDF = log(Total_Number_of_Documents / Documents_Containing_Term)
+TF_IDF = TF * IDF
+Support(A) = Transactions_Containing_A / Total_Transactions
+Support(A,B) = Transactions_Containing_Both_A_and_B / Total_Transactions
+Confidence(A -> B) = Support(A,B) / Support(A)
+Lift(A -> B) = Confidence(A -> B) / Support(B)
+Entropy = -Σ(Pi * log2(Pi))
+Information_Gain = Entropy(Parent) - Weighted_Entropy(Children)
+
+7. STATISTICS AND PREPROCESSING
+Mean = ΣX / n
+Variance = Σ(X - Mean)² / n
+Standard_Deviation = √Variance
+Normalization = (X - Xmin) / (Xmax - Xmin)
+Z_Score = (X - Mean) / Standard_Deviation
+Cosine_Similarity = (A · B) / (||A|| * ||B||)
