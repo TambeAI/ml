@@ -1,0 +1,406 @@
+----------------------------7---------------------------------------------
+Q1. What is data loading?
+Data loading is the process of reading data from a file or source into a program for analysis.
+Q2. What is a file format?
+A file format defines how data is stored in a file, such as CSV, Excel or JSON.
+Q3. What is CSV?
+CSV stands for Comma-Separated Values. It stores tabular data in rows and columns, with values separated by commas.
+Q4. What is JSON?
+JSON stands for JavaScript Object Notation. It stores data using key-value pairs and is commonly used for data exchange.
+Q5. What is an Excel file?
+An Excel file stores data in worksheets containing rows and columns. Common extensions are .xls and .xlsx.
+Q6. Which Python library is used for data loading in this practical?
+Pandas is used to load, process and analyze data.
+Q7. What is Pandas?
+Pandas is a Python library used for data manipulation and analysis.
+Q8. What is a DataFrame?
+A DataFrame is a two-dimensional tabular data structure containing rows and columns.
+Q9. How do you load a CSV file in Pandas?
+Using pd.read_csv("file.csv").
+Q10. How do you load an Excel file?
+Using pd.read_excel("file.xlsx").
+Q11. How do you load a JSON file?
+Using pd.read_json("file.json").
+Q12. What is the use of read_csv()?
+It reads data from a CSV file and converts it into a DataFrame.
+Q13. What is the use of read_excel()?
+It reads data from an Excel file into a DataFrame.
+Q14. What is the use of read_json()?
+It reads JSON data and converts it into a DataFrame or other suitable data structure.
+Q15. What is data parsing?
+Data parsing means reading data and interpreting its structure and data types.
+Q16. What is data cleaning?
+Data cleaning is the process of correcting errors, handling missing values and removing duplicate records.
+Q17. What are missing values?
+Missing values are empty or unavailable values in a dataset.
+Q18. What are duplicate records?
+Duplicate records are repeated rows in a dataset.
+Q19. Why do we convert different file formats into a DataFrame?
+To bring data into a common structure so that it can be easily cleaned, combined and analyzed.
+Q20. What is data transformation?
+Data transformation means changing the structure or values of data into a useful format.
+Q21. What is data merging?
+Data merging means combining two or more datasets using a common column or key.
+Q22. What is descriptive statistics?
+Descriptive statistics summarize data using values such as mean, median, minimum, maximum and standard deviation.
+Q23. What is data aggregation?
+Data aggregation means summarizing data using operations such as sum, mean, count, median and mode.
+Q24. What is the difference between CSV and Excel?
+CSV stores plain text values separated by commas, while Excel can store multiple sheets, formulas and formatting.
+Q25. What is the difference between CSV and JSON?
+CSV stores tabular data, while JSON stores structured data using keys and values.
+Q26. What is read_fwf()?
+It reads data from a fixed-width formatted file.
+Q27. What is read_html()?
+It reads tables from an HTML document.
+Q28. What is read_sql()?
+It reads data from a SQL query result into Pandas.
+Q29. Why do we visualize data?
+Visualization helps us understand patterns, trends and relationships using graphs and charts.
+Q30. What is the main objective of Practical 7?
+The objective is to load sales data from different file formats, clean and transform it, analyze it and create visualizations.
+------------------------------------8----------------------------------------
+1. What is the aim of Practical 8?
+To interact with Web APIs and retrieve weather data using the OpenWeatherMap API.
+2. What is an API?
+API stands for Application Programming Interface. It allows two software applications to communicate with each other.
+3. What is a Web API?
+A Web API allows one application to access data or services from another application over the internet.
+4. What is the problem statement of this practical?
+Analyzing weather data from the OpenWeatherMap API.
+5. What is OpenWeatherMap?
+OpenWeatherMap is an online service that provides weather information such as temperature, humidity, and wind speed.
+6. What is an API key?
+An API key is a unique code used to identify and authenticate an application when accessing an API.
+7. Why do we need an API key?
+To authorize access to the API and retrieve weather information.
+8. How do you obtain an API key?
+Create an account on the OpenWeatherMap website, open the API keys section, and generate a key.
+9. Which Python library is used to send API requests?
+The requests library.
+10. What is the use of requests.get()?
+It sends an HTTP GET request to a URL to retrieve data.
+11. What is an API endpoint?
+An endpoint is a specific URL through which an API provides data or services.
+12. What is JSON?
+JSON stands for JavaScript Object Notation. It is a format used to store and exchange data.
+13. What is the use of response.json()?
+It converts the API response from JSON format into a Python dictionary.
+14. Which weather attributes are collected in this practical?
+Temperature, humidity, wind speed, and precipitation.
+15. What is temperature?
+Temperature tells us how hot or cold the weather is.
+16. What is humidity?
+Humidity is the amount of water vapour present in the air.
+17. What is wind speed?
+Wind speed tells us how fast the air is moving.
+18. What is precipitation?
+Precipitation is water falling from the atmosphere as rain, snow, or other forms.
+19. What is the use of the units parameter in an API request?
+It specifies the measurement units, such as Celsius for temperature.
+20. Why is data cleaning required?
+To handle missing values, inconsistent formats, and incorrect data before analysis.
+21. How can we handle missing values?
+We can fill missing values with suitable values or remove rows containing missing values.
+22. What is an outlier?
+An outlier is a value that is unusually high or low compared with other data values.
+23. What is descriptive statistics?
+It summarizes data using measures such as mean, median, mode, standard deviation, minimum, and maximum.
+24. What is time series analysis?
+It analyzes data collected over time to identify trends and patterns.
+25. Which graphs are used in this practical?
+Line charts, bar plots, scatter plots, and heatmaps.
+26. Why is a line chart used?
+It shows how temperature or another weather attribute changes over time.
+27. Why is a scatter plot used?
+It helps visualize the relationship between two variables, such as temperature and humidity.
+28. What is data aggregation?
+Data aggregation combines or summarizes data for a meaningful analysis, such as daily or monthly average temperature.
+29. What is a heatmap?
+A heatmap represents data using different colours. It can show correlations between weather attributes.
+30. What is geographical visualization?
+It represents weather information on a map using geographical details such as latitude and longitude.
+31. What is latitude?
+Latitude represents the north-south position of a location on Earth.
+32. What is longitude?
+Longitude represents the east-west position of a location on Earth.
+33. Which libraries can be used for map visualization?
+GeoPandas and Folium are examples mentioned in the practical.
+34. What common problems can occur while using an API?
+Invalid API key, internet connection failure, incorrect city name, request limits, and missing data.
+35. What is the final outcome of this practical?
+We learn to retrieve weather data from a Web API, process it, analyze weather patterns, and visualize the results.
+---------------------9-----------------------------------
+What is data cleaning?
+Data cleaning is the process of removing errors, duplicates, and incorrect values from a dataset.
+2. What is data preparation?
+Data preparation means converting raw data into a clean and suitable format for analysis or machine learning.
+3. Which dataset is used in Practical 9?
+Telecom_Customer_Churn.csv
+4. What is customer churn?
+Customer churn means customers stop using a company's services.
+5. What are missing values?
+Missing values are empty or unavailable values in a dataset.
+6. How do you check missing values in Pandas?
+Using df.isnull() or df.isna().
+7. How do you count missing values in each column?
+df.isna().sum()
+8. How do you remove missing values?
+df.dropna()
+9. How do you replace missing values?
+df.fillna(0) replaces missing values with zero.
+10. What are duplicate records?
+Duplicate records are repeated rows in a dataset.
+11. How do you remove duplicate records?
+df.drop_duplicates()
+12. What is an outlier?
+An outlier is a value that is very different from other values in a dataset.
+13. Why do we handle outliers?
+To reduce the effect of unusual values on data analysis and model performance.
+14. What is feature engineering?
+Feature engineering is the process of creating new useful columns from existing data.
+15. What is feature scaling?
+Feature scaling brings numerical values into a similar range.
+16. What is normalization?
+Normalization scales values into a fixed range, usually 0 to 1.
+17. What is StandardScaler?
+StandardScaler transforms data so that its mean becomes 0 and standard deviation becomes 1.
+18. What is train_test_split?
+It divides a dataset into training data and testing data.
+19. Why do we split data into training and testing sets?
+Training data is used to train the model, and testing data is used to evaluate its performance.
+20. What is the use of random_state=42?
+It ensures that the data is split in the same way every time.
+21. What is test_size=0.25?
+It means 25% of the data is used for testing and 75% for training.
+22. How do you export cleaned data into a CSV file?
+df.to_csv("cleaned_data.csv", index=False)
+23. What is data validation?
+Data validation checks whether data is correct, complete, and consistent.
+24. What is inconsistent data?
+Data that has different formats or spellings for the same type of information.
+25. Why is data cleaning important in machine learning?
+It improves data quality and helps produce more reliable model results.
+26. Explain how to handle missing values with Python syntax.
+First, check missing values using df.isna().sum(). Then remove them using df.dropna() or replace them using df.fillna(0).
+27. Explain feature engineering and analysis.
+Feature engineering creates useful new features from existing columns. Feature analysis studies those features to understand patterns and relationships.
+28. Which Python library is used for data cleaning?
+Pandas is commonly used for data cleaning and preparation.
+29. What is the difference between dropna() and fillna()?
+dropna() removes rows or columns containing missing values. fillna() replaces missing values with a specified value.
+30. What is the final output of Practical 9?
+A cleaned and prepared telecom customer churn dataset ready for analysis and machine learning.
+------------------------10-----------------------------------
+1. What is data wrangling?
+Data wrangling is the process of converting raw data into a clean, organized, and useful format for analysis.
+2. What is the aim of Practical 10?
+To perform data wrangling on real estate market data.
+3. Which dataset is used in Practical 10?
+RealEstate_Prices.csv
+4. What information does the dataset contain?
+It contains housing prices, property characteristics, location, sale prices, and other property-related information.
+5. Why is data wrangling important?
+It improves data quality and makes data suitable for analysis and machine learning.
+6. What are the main steps in data wrangling?
+Data loading, cleaning, merging, filtering, transformation, aggregation, and handling outliers.
+7. What is data cleaning?
+Data cleaning means removing incorrect, duplicate, and missing values from a dataset.
+8. How do you load a CSV file in Pandas?
+df = pd.read_csv("RealEstate_Prices.csv")
+9. How do you display the first five rows?
+df.head()
+10. How do you check the structure of a dataset?
+df.info()
+11. How do you clean column names?
+We can remove extra spaces using df.columns.str.strip().
+12. What are missing values?
+Missing values are empty or unavailable values in a dataset.
+13. How do you check missing values?
+df.isnull().sum()
+14. How do you handle missing values?
+We can remove them using dropna() or replace them using fillna().
+15. What is data merging?
+Data merging means combining two or more datasets using a common column.
+16. Which function is used to merge datasets?
+pd.merge()
+17. What is data filtering?
+Data filtering means selecting rows that satisfy a particular condition.
+18. How do you filter properties with prices greater than 50 lakhs?
+df[df["Price"] > 5000000]
+19. What is data subsetting?
+Data subsetting means selecting specific rows or columns from a dataset.
+20. What are categorical variables?
+Categorical variables contain groups or labels, such as property type, city, and location.
+21. What is encoding?
+Encoding converts categorical values into numerical values so machine learning algorithms can process them.
+22. What is label encoding?
+Label encoding assigns a numerical value to each category.
+23. What is one-hot encoding?
+One-hot encoding creates separate columns for each category and represents them using 0 and 1.
+24. What is data aggregation?
+Data aggregation means summarizing data using operations such as sum, mean, count, and average.
+25. How do you calculate average property prices by location?
+df.groupby("Location")["Price"].mean()
+26. What is an outlier?
+An outlier is an extremely high or low value that is different from most other values.
+27. Why do we handle outliers?
+To prevent unusual values from affecting analysis and model performance.
+28. What is data transformation?
+Data transformation means changing data into a suitable format for analysis.
+29. Which Python library is commonly used for data wrangling?
+Pandas is commonly used for data wrangling.
+30. What is the difference between data cleaning and data wrangling?
+Data cleaning focuses on correcting errors and missing values. Data wrangling is a broader process that includes cleaning, merging, filtering, transforming, and organizing data.
+31. What is the use of groupby()?
+It groups data based on one or more columns and performs calculations on each group.
+32. What is the use of pd.concat()?
+It combines multiple DataFrames along rows or columns.
+33. What is the use of sort_values()?
+It sorts the dataset based on a particular column.
+34. What is the use of dropna() and fillna()?
+dropna() removes missing values, while fillna() replaces missing values.
+35. What is the final output of Practical 10?
+A cleaned, transformed, and organized real estate dataset ready for further analysis or machine learning.
+-------------------------11---------------------------
+What is data visualization?
+Data visualization is the process of representing data using graphs, charts, and plots.
+2. What is the aim of Practical 11?
+To visualize data using the Matplotlib library.
+3. What is the problem statement of Practical 11?
+Analyzing Air Quality Index (AQI) Trends in a City.
+4. Which dataset is used in Practical 11?
+City_Air_Quality.csv
+5. What information does the dataset contain?
+It contains date, time, pollutant levels such as PM2.5, PM10, CO, and AQI values.
+6. What is Matplotlib?
+Matplotlib is a Python library used to create graphs and visualizations.
+7. Which function is used to import Matplotlib?
+import matplotlib.pyplot as plt
+8. What is AQI?
+AQI stands for Air Quality Index. It indicates how clean or polluted the air is.
+9. What is PM2.5?
+PM2.5 refers to tiny particles in the air with a diameter of 2.5 micrometers or less.
+10. What is PM10?
+PM10 refers to particles in the air with a diameter of 10 micrometers or less.
+11. What is a line plot?
+A line plot displays data points connected by lines. It is useful for showing trends over time.
+12. Which function is used to create a line plot?
+plt.plot(x, y)
+13. What is a bar chart?
+A bar chart represents data using rectangular bars and is useful for comparing values.
+14. Which function is used to create a bar chart?
+plt.bar(x, y)
+15. What is a scatter plot?
+A scatter plot displays points to show the relationship between two numerical variables.
+16. Which function is used to create a scatter plot?
+plt.scatter(x, y)
+17. What is a histogram?
+A histogram shows the frequency distribution of numerical data using bins.
+18. Which function is used to create a histogram?
+plt.hist(data)
+19. What is a heatmap?
+A heatmap represents numerical values using different colors.
+20. What is the use of plt.xlabel()?
+It gives a label to the X-axis.
+21. What is the use of plt.ylabel()?
+It gives a label to the Y-axis.
+22. What is the use of plt.title()?
+It gives a title to the graph.
+23. What is the use of plt.legend()?
+It displays the labels of different data series in a graph.
+24. What is the use of plt.grid()?
+It displays grid lines to make the graph easier to read.
+25. What is the use of plt.show()?
+It displays the generated graph.
+26. What is time-series visualization?
+It represents data collected over time to identify trends and patterns.
+27. What is comparative analysis?
+Comparative analysis means comparing two or more variables or categories to identify differences.
+28. What is correlation?
+Correlation measures the relationship between two numerical variables.
+29. What is the range of correlation?
+Correlation ranges from -1 to +1. +1 means a perfect positive relationship, -1 means a perfect negative relationship, and 0 means no linear relationship.
+30. Why do we use a heatmap for correlation?
+A heatmap makes it easy to identify positive and negative relationships between variables using colors.
+31. What is Seaborn?
+Seaborn is a Python visualization library built on Matplotlib. It is commonly used for statistical graphs.
+32. What is the difference between Matplotlib and Seaborn?
+Matplotlib provides flexible graph creation, while Seaborn provides attractive statistical visualizations with simpler syntax.
+33. What is the difference between a line plot and a bar chart?
+A line plot shows trends over time, while a bar chart compares values between categories.
+34. Why is data visualization important?
+It helps us understand complex data, identify patterns, compare values, and communicate results easily.
+35. What is the final output of Practical 11?
+Graphs and visualizations showing air quality trends, pollutant levels, and relationships between air quality variables.
+-----------------------12-------------------------------------
+. What is data aggregation?
+Data aggregation is the process of collecting and summarizing data to get meaningful information.
+2. What is the aim of Practical 12?
+To perform data aggregation and analyze sales performance by region in a retail company.
+3. What is the problem statement of Practical 12?
+Analyzing Sales Performance by Region in a Retail Company.
+4. Which dataset is used in Practical 12?
+Retail_Sales_Data.csv
+5. What information does the dataset contain?
+It contains transaction date, product category, quantity sold, sales amount, and region.
+6. Why do we use data aggregation?
+To summarize large amounts of data and identify useful patterns and trends.
+7. What are the common aggregation operations?
+Sum, mean, median, mode, and count.
+8. What is SUM?
+SUM calculates the total of all numerical values.
+9. What is MEAN?
+Mean calculates the average of numerical values.
+10. What is MEDIAN?
+Median is the middle value when data is arranged in ascending or descending order.
+11. What is MODE?
+Mode is the most frequently occurring value in a dataset.
+12. What is COUNT?
+Count calculates the number of non-null values.
+13. Which Python library is commonly used for data aggregation?
+Pandas.
+14. How do you import Pandas?
+import pandas as pd
+15. How do you load a CSV file?
+df = pd.read_csv("Retail_Sales_Data.csv")
+16. What is a DataFrame?
+A DataFrame is a two-dimensional data structure in Pandas containing rows and columns.
+17. What is the use of groupby()?
+It groups data based on one or more columns and allows us to perform calculations on each group.
+18. How do you calculate total sales by region?
+df.groupby("Region")["Sales"].sum()
+19. How do you calculate average sales by region?
+df.groupby("Region")["Sales"].mean()
+20. How do you count sales records by region?
+df.groupby("Region")["Sales"].count()
+21. What is the use of agg()?
+It performs multiple aggregation operations, such as sum, mean, and count, on grouped data.
+22. What is a top-performing region?
+A top-performing region is the region that generates the highest total sales.
+23. How do you find the highest sales value?
+df["Sales"].max()
+24. What is data visualization?
+Data visualization represents data using graphs and charts.
+25. Which graphs are used in Practical 12?
+Bar charts, pie charts, stacked bar charts, and grouped bar charts.
+26. What is a bar chart?
+A bar chart compares values across different categories using rectangular bars.
+27. What is a pie chart?
+A pie chart represents data as slices of a circle to show proportions.
+28. What is a stacked bar chart?
+A stacked bar chart displays multiple categories stacked on top of each other in one bar.
+29. What is a grouped bar chart?
+A grouped bar chart displays multiple bars side by side to compare different categories.
+30. What is the difference between sum and mean?
+Sum gives the total value, while mean gives the average value.
+31. What is the difference between median and mode?
+Median is the middle value, while mode is the most frequently occurring value.
+32. What are the benefits of data aggregation?
+It improves efficiency, increases accuracy, identifies trends, and supports better decision-making.
+33. How can a company use data aggregation?
+A company can compare regional sales, identify profitable products, and find its top-performing region.
+34. What is multi-level grouping?
+Multi-level grouping means grouping data using more than one column, such as region and product category.
+35. What is the final output of Practical 12?
+Summarized sales data by region and product category, along with graphs showing sales distribution and top-performing regions.
